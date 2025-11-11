@@ -60,7 +60,7 @@ The model considers 24 carefully selected features including:
 4. **Access the application**
    Open your web browser and navigate to `http://localhost:8501`
 
-## 📖 Usage Guide
+## Usage Guide
 
 ### Manual Input Mode
 
