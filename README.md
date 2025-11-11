@@ -1,8 +1,8 @@
-# 👩‍💼 Employee Attrition Predictor
+# Employee Attrition Predictor
 
 A machine learning-powered web application that predicts employee attrition risk using a trained logistic regression model. Built with Streamlit for an intuitive user interface and interactive data visualization.
 
-## 🌟 Features
+## Features
 
 ### Manual Input Mode
 - **Interactive UI**: User-friendly sliders and dropdowns for inputting employee data
@@ -24,7 +24,7 @@ The model considers 24 carefully selected features including:
 - **Satisfaction Scores**: Job Satisfaction, Environment Satisfaction, Job Involvement
 - **Work Conditions**: Overtime, Business Travel, Stock Option Level
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Frontend**: [Streamlit](https://streamlit.io/) - Interactive web application framework
 - **Machine Learning**: [Scikit-learn](https://scikit-learn.org/) - Logistic regression model
@@ -33,7 +33,7 @@ The model considers 24 carefully selected features including:
 - **Data Handling**: [NumPy](https://numpy.org/) - Numerical computing
 - **Model Management**: [Joblib](https://joblib.readthedocs.io/) - Model serialization
 
-## 🚀 Installation
+##  Installation
 
 ### Prerequisites
 - Python 3.7 or higher
@@ -88,7 +88,7 @@ Age,TotalWorkingYears,MonthlyIncome,JobLevel,Gender,OverTime,Department,...
 35,10,5000,2,Male,Yes,Sales,...
 ```
 
-## 🤖 Model Information
+## Model Information
 
 - **Algorithm**: Logistic Regression
 - **Preprocessing**: MinMaxScaler for numerical features
@@ -101,7 +101,7 @@ Age,TotalWorkingYears,MonthlyIncome,JobLevel,Gender,OverTime,Department,...
 - `scaler.pkl` - MinMaxScaler for feature preprocessing
 - `selected_features.pkl` - List of 24 selected features
 
-## 📁 File Structure
+##File Structure
 
 ```
 AttritionPredictor/
@@ -113,11 +113,11 @@ AttritionPredictor/
 └── README.md                       # Project documentation
 ```
 
-## 🔧 Configuration
+## Configuration
 
 The application uses pre-trained models and doesn't require additional configuration. All model artifacts are included in the repository for immediate use.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
@@ -128,23 +128,23 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📊 Example Use Cases
+## Example Use Cases
 
 - **HR Analytics**: Identify employees at risk of leaving
 - **Retention Planning**: Proactive measures for high-risk employees
 - **Workforce Management**: Understanding factors contributing to attrition
 - **Strategic Planning**: Data-driven insights for employee retention strategies
 
-## 📄 License
+## License
 
 This project is available under the MIT License. See the LICENSE file for more details.
 
-## 👨‍💻 Author
+##  Author
 
 **Aman Sreejesh**
 
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Built using the powerful Streamlit framework
 - Machine learning capabilities powered by Scikit-learn
