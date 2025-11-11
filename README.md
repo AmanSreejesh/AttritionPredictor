@@ -142,7 +142,7 @@ This project is available under the MIT License. See the LICENSE file for more d
 ## 👨‍💻 Author
 
 **Aman Sreejesh**
-- GitHub: [@sreekarun](https://github.com/sreekarun)
+
 
 ## 🙏 Acknowledgments
 
