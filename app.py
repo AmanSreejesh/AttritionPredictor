@@ -3,16 +3,11 @@ import pandas as pd
 import joblib
 import plotly.express as px
 
-# ------------------------
-# Load model, scaler, and features
-# ------------------------
+
 model = joblib.load("logistic_regression_model.pkl")
 scaler = joblib.load("scaler.pkl")
-selected_features = joblib.load("selected_features.pkl")  # List of columns model expects
+selected_features = joblib.load("selected_features.pkl")  
 
-# ------------------------
-# Streamlit page config
-# ------------------------
 st.set_page_config(page_title="Attrition Predictor", layout="centered")
 st.title("👩‍💼 Employee Attrition Predictor")
 st.markdown("""
@@ -20,9 +15,7 @@ Predict whether an employee is at risk of attrition based on selected features.
 Choose between **Manual Input** for a single employee or **Upload CSV** for multiple employees.
 """)
 
-# ------------------------
-# Feature descriptions for tooltips
-# ------------------------
+
 feature_info = {
     "Age": "Employee's age in years.",
     "TotalWorkingYears": "Total number of years the employee has worked across all companies.",
@@ -43,14 +36,11 @@ feature_info = {
     "Department": "Department where the employee works."
 }
 
-# ------------------------
-# Sidebar for mode selection
-# ------------------------
+
+
 mode = st.sidebar.radio("Choose Input Mode", ["Manual Input", "Upload CSV"])
 
-# ------------------------
-# Manual Input Mode
-# ------------------------
+
 if mode == "Manual Input":
     st.subheader("🔧 Manual Input: Single Employee")
     col1, col2 = st.columns(2)
@@ -80,7 +70,6 @@ if mode == "Manual Input":
         ], help=feature_info["JobRole"])
         department = st.selectbox("Department", ["Human Resources", "Research & Development", "Sales"], help=feature_info["Department"])
 
-    # Build input dict
     input_dict = {
         'OverTime_Yes': 1 if overtime == "Yes" else 0,
         'TotalWorkingYears': total_working_years,
@@ -106,28 +95,23 @@ if mode == "Manual Input":
 
     X_input = pd.DataFrame([input_dict])
 
-    # Add missing columns with zeros
     for col in selected_features:
         if col not in X_input.columns:
             X_input[col] = 0
     X_input = X_input[selected_features]
 
-    # Scale numeric columns
     numeric_cols = scaler.feature_names_in_
     X_input[numeric_cols] = scaler.transform(X_input[numeric_cols])
 
-    # Prediction button
     if st.button("🔮 Predict Attrition Risk"):
         prediction = model.predict(X_input)[0]
         probability = model.predict_proba(X_input)[0][1]
         
-        # Display result
         if prediction == 1:
             st.error(f"⚠️ **High Attrition Risk!**\n\nProbability: {probability:.2%}")
         else:
             st.success(f"✅ **Low Attrition Risk**\n\nProbability: {probability:.2%}")
 
-        # Plot probability
         fig = px.bar(
             x=["Low Risk", "High Risk"], 
             y=[1 - probability, probability],
@@ -137,9 +121,6 @@ if mode == "Manual Input":
         )
         st.plotly_chart(fig, use_container_width=True)
 
-# ------------------------
-# CSV Upload Mode
-# ------------------------
 else:
     st.subheader("📂 Upload CSV for Batch Prediction")
     uploaded_file = st.file_uploader("Upload a CSV file with employee data", type=["csv"])
@@ -147,17 +128,14 @@ else:
     if uploaded_file is not None:
         df = pd.read_csv(uploaded_file)
 
-        # Fill missing model columns with 0
         for col in selected_features:
             if col not in df.columns:
                 df[col] = 0
         df = df[selected_features]
 
-        # Scale numeric columns
         numeric_cols = scaler.feature_names_in_
         df[numeric_cols] = scaler.transform(df[numeric_cols])
 
-        # Predictions
         preds = model.predict(df)
         probs = model.predict_proba(df)[:, 1]
 
@@ -166,22 +144,19 @@ else:
             "Probability": probs
         })
 
-        # Merge back original data for context
         results_df = pd.concat([pd.read_csv(uploaded_file), df_results], axis=1)
 
-        # Highlight high-risk rows
         def highlight_risk(row):
             color = 'background-color: salmon' if row['Prediction'] == "High Risk" else ''
             return [color] * len(row)
 
         st.dataframe(results_df.style.apply(highlight_risk, axis=1))
 
-        # Distribution chart
         fig = px.histogram(df_results, x="Probability", nbins=10, color="Prediction",
                            title="Probability Distribution of Attrition Risk",
                            color_discrete_map={"Low Risk": "green", "High Risk": "red"})
         st.plotly_chart(fig, use_container_width=True)
 
-# Footer
 st.markdown("---")
 st.caption("Model: Logistic Regression | Scaling: MinMaxScaler | Built by Aman Sreejesh")
+
